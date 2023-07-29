@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Book Management System</title>
+    <script>
+        // Function to display all books
+        async function loadBooks() {
+            const response = await fetch('http://localhost:3001/books');
+            const books = await response.json();
+
+            const booksContainer = document.getElementById('books');
+            booksContainer.innerHTML = '';
+
+            books.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.textContent = `ID: ${book.id}, Title: ${book.title}, Author: ${book.author}`;
+                booksContainer.appendChild(bookItem);
+            });
+        }
+    </script>
 </head>
+
 <body>
     <h1>Book Management System</h1>
 
@@ -15,10 +33,11 @@
         <input type="text" id="author" name="author"><br>
         <input type="submit" value="Add Book">
     </form>
-    
+
     <p id="message"></p>
 
     <h2>All Books</h2>
     <div id="books"></div>
 </body>
+
 </html>
