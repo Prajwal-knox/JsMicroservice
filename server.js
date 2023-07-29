@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require("axios");
 const app = express();
 app.use(express.json());
 
@@ -38,5 +39,16 @@ app.delete('/books/:id', (req, res) => {
     res.status(404).send();
   }
 });
+
+app.get("/posts", (req, res) => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => {
+        res.json(response.data);
+      })
+      .catch((error) => {
+        res.status(500).send();
+      });
+  });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
